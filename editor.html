@@ -64,6 +64,7 @@
 <script>
     var grid = GridStack.init();
     grid.float(true);
+    grid.cellHeight(1080/12);
 </script>
 
 <!-- Drag and Drop image upload -->
@@ -88,7 +89,8 @@
                     var reader = new FileReader();
 
                     reader.onload = function(e) {
-                        grid.addWidget({w: 4, h: 4, content: '<img class="image" src="' + e.target.result + '" />'});
+                        var widget = grid.addWidget({w: 4, h: 4, content: '<img class="image" src="' + e.target.result + '" />', sizeToContent: 1});
+                        grid.resizeToContent(widget);
                     }
 
                     reader.readAsDataURL(file); // start reading the file data.
@@ -107,6 +109,7 @@
         $('.image').css('padding', padding);
         $('#canvas').css('height', height);
         $('#canvas').css('width', width);
+        grid.cellHeight(height/12);
     }
 
     function print() {
