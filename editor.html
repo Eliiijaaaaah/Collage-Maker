@@ -16,10 +16,23 @@
     body {
         background-color: black;
     }
+
+    h1 {
+        color: white;
+    }
+
+    .settings {
+        zoom: 3;
+    }
+
     #canvas {
         height: 1080px;
         width: 1080px;
         background-color: white;
+    }
+
+    .canvas-container {
+        margin-top: 50px;
     }
 
     .image {
@@ -40,34 +53,39 @@
 </style>
 
 
-<div class="grid">
-    <div class="col-xs-4">
-        <h1>Settings</h1>
-        <label>Padding: </label><input id="padding" type="text" value="0" />
+<div class="grid mt-3">
+    <div class="row col-xs-4 settings">
+        <div class="col-xs-12">
+            <h1>Settings</h1>
+        </div>
 
-        <br>
+        <div class="col-xs-12">
+            <label>Padding: </label><input id="padding" type="text" value="0" />
+        </div>
 
-        <label>Height: </label><input id="height" type="text" value="1080" />
+        <div class="col-xs-12">
+            <label>Height: </label><input id="height" type="text" value="1080" />
+        </div>
 
-        <br>
+        <div class="col-xs-12">
+            <label>Width: </label><input id="width" type="text" value="1080" />
+        </div>
 
-        <label>Width: </label><input id="width" type="text" value="1080" />
-
-        <br>
-
-        <button onclick="settings()">Apply</button>
+        <div class="col-xs-12 margin-top-3">
+            <button onclick="settings()">Apply</button>
+            <button onClick="print()">Save</button>
+        </div>
     </div>
 
 
 
-    <div class="col-xs-8">
+    <div class="col-xs-8 canvas-container">
         <div id="canvas">
             <div class="grid-stack"></div>
         </div>
     </div>
 </div>
 
-<button onClick="print()">Save</button>
 
 
 
@@ -119,6 +137,8 @@
         $('.image').css('padding', padding);
         $('#canvas').css('height', height);
         $('#canvas').css('width', width);
+        
+        // keeps cell aspect ratio matching canvas size
         grid.cellHeight(height/12);
     }
 
@@ -147,5 +167,9 @@
         link.href = uri;
         document.body.appendChild(link);
         link.click();
+    }
+
+    function scale(x) {
+        $(".canvas-container").css("zoom", x/100);
     }
 </script>
