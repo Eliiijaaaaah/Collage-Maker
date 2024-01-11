@@ -27,6 +27,16 @@
         height: 100%;
         object-fit: cover;
     }
+
+    .close {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+    }
+    .close:hover {
+        opacity: 1;
+    }
 </style>
 
 
@@ -89,7 +99,7 @@
                     var reader = new FileReader();
 
                     reader.onload = function(e) {
-                        var widget = grid.addWidget({w: 4, h: 4, content: '<img class="image" src="' + e.target.result + '" />', sizeToContent: 1});
+                        var widget = grid.addWidget({w: 4, h: 4, content: '<div class="grid-stack-item"><div class="grid-stack-item-content"><img class="image" src="' + e.target.result + '" /></div></div><button onclick="removeWidget(this.parentElement.parentElement)" class="close">X</button>', sizeToContent: 1});
                         grid.resizeToContent(widget);
                     }
 
@@ -112,6 +122,10 @@
         grid.cellHeight(height/12);
     }
 
+    function removeWidget(el) {
+        grid.removeWidget(el, removeDOM = true, triggerEvent = true)
+    }
+
     function print() {
         var div = document.getElementById('canvas');
         var options = {
@@ -120,7 +134,7 @@
 
         domtoimage.toJpeg(div, options).then(function (dataUrl) {
             var link = document.createElement('a');
-            link.download = 'my-image-name.jpeg';
+            link.download = 'collage_export.jpeg';
             link.href = dataUrl;
             link.click();
         });
